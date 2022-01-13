@@ -1,24 +1,30 @@
-import { Paper, List, Divider, ListItem, ListItemText } from "@mui/material"
+import { Paper, List, Divider} from "@mui/material"
+import React from "react"
 import Todo from "./Todo"
 
-const TodoList = (props) => {
+const TodoList = ({ todos, removeTodo, toggleTodo, editTodo}) => {
+    if(todos.length)
     return (
         <Paper>
             <List>
-                {props.todos.map(todo => (
-                <>
-                    <ListItem>
-                        <ListItemText>
-                            <Todo task={todo.task} key={todo.id} completed={todo.completed} />
-                        </ListItemText>
-                    </ListItem>
-                    <Divider />
-                </>
-            ))}
+                {todos.map((todo, i) => (
+                <React.Fragment key={i}>
+                            <Todo 
+                                {...todo}
+                                task={todo.task} 
+                                key={todo.id} 
+                                completed={todo.completed} 
+                                removeTodo={removeTodo}
+                                toggleTodo={toggleTodo}
+                                editTodo={editTodo}
+                            />
+                            {i < todos.length -1 && <Divider/>}
+                </React.Fragment>
+                ))}
             </List>
         </Paper>
-
-    )
+    );;
+    return null;
 }
 
 export default TodoList
